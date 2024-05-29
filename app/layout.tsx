@@ -11,10 +11,12 @@ export const metadata: Metadata = {
     default: 'Jan Hoppel',
     template: '%s | Jan Hoppel'
   },
-  description: 'Developer, writer, and creator.',
+  description:
+    'Fullstack developer with a passion for creating versatile and modern software solutions.',
   openGraph: {
     title: 'Jan Hoppel',
-    description: 'Developer, writer, and creator.',
+    description:
+      'Fullstack developer with a passion for creating versatile and modern software solutions.',
     url: 'https://hjopel.at',
     siteName: 'Jan Hoppel',
     locale: 'en_US',
