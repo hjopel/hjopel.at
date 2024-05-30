@@ -3,13 +3,7 @@ name: Deploy to Cloud Run
 env:
   SERVICE_NAME: portfolio
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: [push]
 
 jobs:
   dockerize-and-deploy:
