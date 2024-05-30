@@ -5,7 +5,13 @@ import { CustomMDX } from '@/components/ui/mdx';
 import { getBlogPosts } from '@/app/content/blog';
 import { unstable_noStore as noStore } from 'next/cache';
 
-export async function generateMetadata({ params }): Promise<Metadata | undefined> {
+export async function generateMetadata({
+  params
+}: {
+  params: {
+    slug: string;
+  };
+}): Promise<Metadata | undefined> {
   let post = getBlogPosts().find((post) => post.slug === params.slug);
   if (!post) {
     return;
@@ -70,7 +76,13 @@ function formatDate(date: string) {
   }
 }
 
-export default function Blog({ params }) {
+export default function Blog({
+  params
+}: {
+  params: {
+    slug: string;
+  };
+}) {
   let post = getBlogPosts().find((post) => post.slug === params.slug);
 
   if (!post) {
