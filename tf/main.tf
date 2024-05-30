@@ -69,7 +69,7 @@ module "cloud_run" {
   service_account = module.portfolio_service_account.email
   containers = {
     portfolio = {
-      image = "us-docker.pkg.dev/cloudrun/container/hello"
+      image = "europe-west1-docker.pkg.dev/${local.project_id}/hjopel/portfolio:latest"
     }
   }
   iam = {
@@ -87,7 +87,7 @@ module "gh_actions_service_account" {
       "roles/run.admin",
       "roles/artifactregistry.createOnPushWriter",
       "roles/iam.serviceAccountUser"
-      
+
     ]
   }
 }
