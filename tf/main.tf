@@ -84,8 +84,8 @@ module "gh_actions_service_account" {
 
   iam_project_roles = {
     (local.project_id) = [
-      "roles/run.developer",
-      "roles/artifactregistry.createOnPushWriter"
+      "roles/run.admin",
+      "roles/artifactregistry.createOnPushWriter",
     ]
   }
 }
