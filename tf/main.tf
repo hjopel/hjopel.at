@@ -48,7 +48,7 @@ module "portfolio_service_account" {
   # Grant gh-actions the serviceAccountUser role on the portfolio service account
   iam = {
     "roles/iam.serviceAccountUser" = [
-      "serviceAccount:${module.portfolio_service_account.email}"
+      "serviceAccount:${module.gh_actions_service_account.email}"
     ]
   }
 
