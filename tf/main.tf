@@ -31,11 +31,41 @@ module "bucket" {
   prefix     = "hjopel"
 }
 
-module "cloud_run" {
-  source     = "./fabric/modules/cloud-run-v2"
+module "docker_artifact_registry" {
+  source     = "./fabric/modules/artifact-registry"
   project_id = local.project_id
-  region     = "europe-west1"
+  name       = "hjopel"
+  location   = "europe-west1"
+
+}
+
+module "portfolio_service_account" {
+  source     = "./fabric/modules/iam-service-account"
+  project_id = local.project_id
   name       = "portfolio"
+
+
+  # Grant gh-actions the serviceAccountUser role on the portfolio service account
+  iam = {
+    "roles/iam.serviceAccountUser" = [
+      "serviceAccount:${module.portfolio_service_account.email}"
+    ]
+  }
+
+  iam_project_roles = {
+    (local.project_id) = [
+      "roles/run.developer",
+      "roles/artifactregistry.reader"
+    ]
+  }
+}
+
+module "cloud_run" {
+  source          = "./fabric/modules/cloud-run-v2"
+  project_id      = local.project_id
+  region          = "europe-west1"
+  name            = "portfolio"
+  service_account = module.portfolio_service_account.email
   containers = {
     portfolio = {
       image = "us-docker.pkg.dev/cloudrun/container/hello"
@@ -46,21 +76,13 @@ module "cloud_run" {
   }
 }
 
-module "docker_artifact_registry" {
-  source     = "./fabric/modules/artifact-registry"
-  project_id = local.project_id
-  name       = "hjopel"
-  location   = "europe-west1"
-
-}
-
 module "gh_actions_service_account" {
   source     = "./fabric/modules/iam-service-account"
   project_id = local.project_id
   name       = "gh-actions"
 
   iam_project_roles = {
-    "hjopel-playground" = [
+    (local.project_id) = [
       "roles/run.developer",
       "roles/artifactregistry.createOnPushWriter"
     ]
