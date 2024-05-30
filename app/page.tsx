@@ -107,10 +107,11 @@ export default function Page() {
           >
             Captic
           </Link>
+          space-
         </p>
       </div>
-      <ul className="font-sm mt-8 flex space-x-0 gap-1 space-y-2 text-neutral-600 md:space-y-0 dark:text-neutral-300 items-center justify-start">
-        <li>
+      <ul className="font-sm mt-4 flex space-x-0 p-0 gap-1 space-y-2 text-neutral-600 md:space-y-0 dark:text-neutral-300 items-center justify-start list-none">
+        <li className="m-0">
           <Button
             asChild
             className="flex items-start transition-all hover:text-neutral-800 dark:hover:text-neutral-100 px-0"
@@ -122,7 +123,7 @@ export default function Page() {
             </Link>
           </Button>
         </li>
-        <li>
+        <li className="m-0">
           <Button
             asChild
             className="flex items-start transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
