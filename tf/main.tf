@@ -1,3 +1,7 @@
+locals {
+  project_id = "hjopel-playground"
+}
+
 terraform {
   required_providers {
     google = {
@@ -22,13 +26,13 @@ terraform {
 # }
 
 provider "google" {
-  project = "hjopel-playground"
+  project = local.project_id
   region  = "europe-west1"
 }
 
 module "bucket" {
   source     = "./fabric/modules/gcs"
-  project_id = "hjopel-playground"
+  project_id = local.project_id
   name       = "tf-state-bucket"
   location   = "EU"
   versioning = true
@@ -37,7 +41,7 @@ module "bucket" {
 
 module "cloud_run" {
   source     = "./fabric/modules/cloud-run-v2"
-  project_id = "hjopel-playground"
+  project_id = local.project_id
   region     = "europe-west1"
   name       = "portfolio"
   containers = {
@@ -48,5 +52,17 @@ module "cloud_run" {
   iam = {
     "roles/run.invoker" = ["allUsers"]
   }
+}
 
+module "gh_actions_service_account" {
+  source     = "./fabric/modules/iam-service-account"
+  project_id = local.project_id
+  name       = "gh-actions"
+
+  iam_project_roles = {
+    "hjopel-playground" = [
+      # "roles/storage.admin",
+      "roles/run.admin"
+    ]
+  }
 }
