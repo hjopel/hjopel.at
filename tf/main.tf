@@ -17,14 +17,6 @@ terraform {
   }
 }
 
-# data "terraform_remote_state" "tf_state" {
-#   backend = "gcs"
-#   config = {
-#     bucket = "tf-state-bucket"
-#     prefix = "hjopel"
-#   }
-# }
-
 provider "google" {
   project = local.project_id
   region  = "europe-west1"
@@ -69,7 +61,6 @@ module "gh_actions_service_account" {
 
   iam_project_roles = {
     "hjopel-playground" = [
-      # "roles/storage.admin",
       "roles/run.developer",
       "roles/artifactregistry.createOnPushWriter"
     ]
