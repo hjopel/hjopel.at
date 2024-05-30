@@ -29,13 +29,13 @@ jobs:
       - name: Build and Push Docker Image
         run: |
           cd next/
-          docker build -t gcr.io/hjopel-playground/portfolio:latest .
-          # docker push gcr.io/hjopel-playground/portfolio:latest
+          docker build -t europe-west1-docker.pkg.dev/hjopel-playground/portfolio:latest .
+          docker push europe-west1-docker.pkg.dev/hjopel-playground/portfolio:latest
 
       # - name: Deploy to Cloud Run
       #   run: |
       #     gcloud run deploy $SERVICE_NAME \
-      #       --image gcr.io/hjopel-playground/portfolio:latest \
+      #       --image europe-west1-docker.pkg.dev/hjopel-playground/portfolio:latest \
       #       --platform managed \
       #       --region us-central1 \
       #       --allow-unauthenticated
