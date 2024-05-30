@@ -54,8 +54,9 @@ module "portfolio_service_account" {
 
   iam_project_roles = {
     (local.project_id) = [
-      "roles/run.developer",
-      "roles/artifactregistry.reader"
+      "roles/run.admin",
+      "roles/artifactregistry.reader",
+      "roles/iam.serviceAccountUser"
     ]
   }
 }
