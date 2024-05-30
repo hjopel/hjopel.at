@@ -28,6 +28,7 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
+          cd next/
           docker build -t gcr.io/hjopel-playground/portfolio:latest .
           # docker push gcr.io/hjopel-playground/portfolio:latest
 
