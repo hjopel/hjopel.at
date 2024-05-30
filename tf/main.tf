@@ -54,6 +54,14 @@ module "cloud_run" {
   }
 }
 
+module "docker_artifact_registry" {
+  source     = "./fabric/modules/artifact-registry"
+  project_id = local.project_id
+  name       = "hjopel"
+  location   = "europe-west1"
+
+}
+
 module "gh_actions_service_account" {
   source     = "./fabric/modules/iam-service-account"
   project_id = local.project_id
@@ -62,7 +70,8 @@ module "gh_actions_service_account" {
   iam_project_roles = {
     "hjopel-playground" = [
       # "roles/storage.admin",
-      "roles/run.admin"
+      "roles/run.developer",
+      "roles/artifactregistry.createOnPushWriter"
     ]
   }
 }
