@@ -107,7 +107,6 @@ export default function Page() {
           >
             Captic
           </Link>
-          space-
         </p>
       </div>
       <ul className="font-sm mt-4 flex space-x-0 p-0 gap-1 space-y-2 text-neutral-600 md:space-y-0 dark:text-neutral-300 items-center justify-start list-none">
