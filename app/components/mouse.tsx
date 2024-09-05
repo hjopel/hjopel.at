@@ -10,10 +10,12 @@ export const MousePositionProvider = ({ children }: { children: ReactNode }) => 
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      setMousePosition({
-        x: event.clientX / window.innerWidth,
-        y: -event.clientY / window.innerHeight
-      })
+      const pos = {
+        x: (event.clientX / window.innerWidth) * 2 - 1,
+        y: -(event.clientY / window.innerHeight) * 2 + 1
+      }
+      console.log(pos)
+      setMousePosition(pos)
     }
 
     window.addEventListener('mousemove', handleMouseMove)

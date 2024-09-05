@@ -1,61 +1,92 @@
-'use client'
+"use client";
 
-import * as THREE from 'three'
-import { useRef, useEffect } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { MarchingCubes, MarchingCube, MeshTransmissionMaterial, Environment, Bounds, Text } from '@react-three/drei'
-import { Physics, RigidBody, BallCollider } from '@react-three/rapier'
+import * as THREE from "three";
+import { useRef, useEffect } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import {
+  MarchingCubes,
+  MarchingCube,
+  MeshTransmissionMaterial,
+  Environment,
+  Bounds,
+  Text,
+} from "@react-three/drei";
+import { Physics, RigidBody, BallCollider } from "@react-three/rapier";
 
 function MetaBall({ color, vec = new THREE.Vector3(), ...props }) {
-  const api = useRef()
+  const api = useRef();
   useFrame((state, delta) => {
-    delta = Math.min(delta, 0.1)
+    delta = Math.min(delta, 0.1);
     // @ts-ignore
     api.current?.applyImpulse(
       vec
         // @ts-ignore
         .copy(api.current.translation())
         .normalize()
-        .multiplyScalar(delta * -0.05),
-    )
-  })
+        .multiplyScalar(delta * -0.05)
+    );
+  });
   return (
-    // @ts-ignore
-    <RigidBody ref={api} colliders={false} linearDamping={4} angularDamping={0.95} {...props}>
+    <RigidBody    // @ts-ignore
+
+      ref={api}
+      colliders={false}
+      linearDamping={4}
+      angularDamping={0.95}
+      {...props}
+    >
       <MarchingCube strength={0.35} subtract={6} color={color} />
       {/* @ts-ignore */}
       <BallCollider args={[0.1]} type="dynamic" />
     </RigidBody>
-  )
+  );
 }
 function Pointer({ mousePosition, vec = new THREE.Vector3() }) {
-  const ref = useRef<typeof RigidBody>()
-  useFrame(({ viewport }) => {
+  const ref = useRef<typeof RigidBody>();
+  useFrame(({ viewport, size }) => {
     const { width, height } = viewport.getCurrentViewport()
-    vec.set(mousePosition.x * width / 2, mousePosition.y * height / 2, 0)
+    vec.set((mousePosition.x * width) / 2, (mousePosition.y * height) / 2, 0);
     if (ref.current) {
       // @ts-ignore
-      ref.current.setNextKinematicTranslation(vec)
+      ref.current.setNextKinematicTranslation(vec);
     }
-  })
+  });
   return (
     // @ts-ignore
     <RigidBody type="kinematicPosition" colliders={false} ref={ref}>
-      <MarchingCube strength={0.5} subtract={10} color={new THREE.Color("orange")} />
+      <MarchingCube
+        strength={0.5}
+        subtract={10}
+        color={new THREE.Color("orange")}
+      />
       {/* @ts-ignore */}
       <BallCollider args={[0.1]} type="dynamic" />
     </RigidBody>
-  )
+  );
 }
 
 export default function App({ mousePosition }) {
   return (
-    <div style={{ width: '100vw', height: '100vh', position: 'fixed', top: 0, left: 0, zIndex: -1 }}>
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        zIndex: -1,
+      }}
+    >
       <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 5], fov: 25 }}>
-        <color attach="background" args={['#000000']} />
+        <color attach="background" args={["#000000"]} />
         <ambientLight intensity={1} />
         <Physics gravity={[0, 2, 0]}>
-          <MarchingCubes resolution={80} maxPolyCount={20000} enableUvs={false} enableColors>
+          <MarchingCubes
+            resolution={80}
+            maxPolyCount={20000}
+            enableUvs={false}
+            enableColors
+          >
             {/* @ts-ignore */}
             <meshStandardMaterial vertexColors thickness={0.15} roughness={0} />
             <MetaBall color="indianred" position={[1, 1, 0.5]} />
@@ -76,5 +107,5 @@ export default function App({ mousePosition }) {
         </Bounds>
       </Canvas>
     </div>
-  )
+  );
 }
