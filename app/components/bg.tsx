@@ -78,7 +78,7 @@ export default function App({ mousePosition }) {
       }}
     >
       <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 5], fov: 25 }}>
-        <color attach="background" args={["#000000"]} />
+        <color attach="background" args={["#ffffff"]} />
         <ambientLight intensity={0.5} />
         <Physics gravity={[0, 2, 0]}>
           <MarchingCubes
@@ -98,7 +98,7 @@ export default function App({ mousePosition }) {
             <Pointer mousePosition={mousePosition} />
           </MarchingCubes>
         </Physics>
-        <Environment preset="city"/>
+        <Environment blur={2} files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/industrial_workshop_foundry_1k.hdr" />
         {/* Zoom to fit a 1/1/1 box to match the marching cubes */}
         <Bounds fit clip observe margin={1}>
           <mesh visible={false}>
