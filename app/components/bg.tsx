@@ -10,31 +10,39 @@ function MetaBall({ color, vec = new THREE.Vector3(), ...props }) {
   const api = useRef()
   useFrame((state, delta) => {
     delta = Math.min(delta, 0.1)
-    api.current.applyImpulse(
+    // @ts-ignore
+    api.current?.applyImpulse(
       vec
+        // @ts-ignore
         .copy(api.current.translation())
         .normalize()
         .multiplyScalar(delta * -0.05),
     )
   })
   return (
+    // @ts-ignore
     <RigidBody ref={api} colliders={false} linearDamping={4} angularDamping={0.95} {...props}>
       <MarchingCube strength={0.35} subtract={6} color={color} />
+      {/* @ts-ignore */}
       <BallCollider args={[0.1]} type="dynamic" />
     </RigidBody>
   )
 }
-
 function Pointer({ mousePosition, vec = new THREE.Vector3() }) {
-  const ref = useRef()
+  const ref = useRef<typeof RigidBody>()
   useFrame(({ viewport }) => {
     const { width, height } = viewport.getCurrentViewport()
-    vec.set(mousePosition.x * width - width / 2, mousePosition.y * height + height / 2, 0)
-    ref.current.setNextKinematicTranslation(vec)
+    vec.set(mousePosition.x * width / 2, mousePosition.y * height / 2, 0)
+    if (ref.current) {
+      // @ts-ignore
+      ref.current.setNextKinematicTranslation(vec)
+    }
   })
   return (
+    // @ts-ignore
     <RigidBody type="kinematicPosition" colliders={false} ref={ref}>
-      <MarchingCube strength={0.5} subtract={10} color="orange" />
+      <MarchingCube strength={0.5} subtract={10} color={new THREE.Color("orange")} />
+      {/* @ts-ignore */}
       <BallCollider args={[0.1]} type="dynamic" />
     </RigidBody>
   )
@@ -48,6 +56,7 @@ export default function App({ mousePosition }) {
         <ambientLight intensity={1} />
         <Physics gravity={[0, 2, 0]}>
           <MarchingCubes resolution={80} maxPolyCount={20000} enableUvs={false} enableColors>
+            {/* @ts-ignore */}
             <meshStandardMaterial vertexColors thickness={0.15} roughness={0} />
             <MetaBall color="indianred" position={[1, 1, 0.5]} />
             <MetaBall color="skyblue" position={[-1, -1, -0.5]} />
