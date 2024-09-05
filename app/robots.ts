@@ -1,11 +1,12 @@
+import { baseUrl } from 'app/sitemap'
+
 export default function robots() {
   return {
     rules: [
       {
-        userAgent: '*'
-      }
+        userAgent: '*',
+      },
     ],
-    sitemap: 'https://hjopel.at/sitemap.xml',
-    host: 'https://hjopel.at'
-  };
+    sitemap: `${baseUrl}/sitemap.xml`,
+  }
 }
