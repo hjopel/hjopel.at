@@ -1,0 +1,56 @@
+@page {
+  size: auto;
+  margin: 0mm;
+}
+
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  @page { margin: 0; }
+  body { margin: 1.6cm; }
+
+  /* Ensure images are printed correctly */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+    display: block;
+  }
+
+  /* Specific styles for the profile image */
+  .rounded-full {
+    border-radius: 50% !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  }
+
+  .print-image {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Maintain flex layout for printing */
+  .flex {
+    display: flex !important;
+  }
+
+  .flex-col {
+    flex-direction: column !important;
+  }
+
+  .md\:flex-row {
+    flex-direction: row !important;
+  }
+
+  .items-center {
+    align-items: center !important;
+  }
+
+  .sm\:items-start {
+    align-items: flex-start !important;
+  }
+
+  .gap-6 {
+    gap: 1.5rem !important;
+  }
+}
