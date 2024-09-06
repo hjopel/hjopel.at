@@ -1,11 +1,11 @@
-import { BlogPosts } from 'app/components/posts'
-import { MousePositionProvider } from 'app/components/mouse'
+import { BlogPosts } from "app/components/posts";
+import { MousePositionProvider } from "app/components/mouse";
 
 export default function Page() {
   return (
     <MousePositionProvider>
       <section>
-        <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
+        <h1 className="mb-8 text-2xl font-semibold tracking-tighter animate-fade-in-down">
           Hi, I'm Jan
         </h1>
         <p className="mb-4">
@@ -17,5 +17,5 @@ export default function Page() {
         </div>
       </section>
     </MousePositionProvider>
-  )
+  );
 }

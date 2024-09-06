@@ -27,8 +27,7 @@ function MetaBall({ color, vec = new THREE.Vector3(), ...props }) {
     );
   });
   return (
-    <RigidBody    // @ts-ignore
-
+    <RigidBody // @ts-ignore
       ref={api}
       colliders={false}
       linearDamping={4}
@@ -44,7 +43,7 @@ function MetaBall({ color, vec = new THREE.Vector3(), ...props }) {
 function Pointer({ mousePosition, vec = new THREE.Vector3() }) {
   const ref = useRef<typeof RigidBody>();
   useFrame(({ viewport, size }) => {
-    const { width, height } = viewport.getCurrentViewport()
+    const { width, height } = viewport.getCurrentViewport();
     vec.set((mousePosition.x * width) / 2, (mousePosition.y * height) / 2, 0);
     if (ref.current) {
       // @ts-ignore
@@ -65,7 +64,7 @@ function Pointer({ mousePosition, vec = new THREE.Vector3() }) {
   );
 }
 
-export default function App({ mousePosition }) {
+export default function BG({ mousePosition }) {
   return (
     <div
       style={{
@@ -98,7 +97,10 @@ export default function App({ mousePosition }) {
             <Pointer mousePosition={mousePosition} />
           </MarchingCubes>
         </Physics>
-        <Environment blur={2} files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/industrial_workshop_foundry_1k.hdr" />
+        <Environment
+          blur={2}
+          files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/industrial_workshop_foundry_1k.hdr"
+        />
         {/* Zoom to fit a 1/1/1 box to match the marching cubes */}
         <Bounds fit clip observe margin={1}>
           <mesh visible={false}>

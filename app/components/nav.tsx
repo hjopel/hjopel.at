@@ -1,16 +1,16 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 const navItems = {
-  '/': {
-    name: 'home',
+  "/": {
+    name: "home",
   },
-  '/blog': {
-    name: 'blog',
+  "/blog": {
+    name: "blog",
   },
   // 'https://vercel.com/templates/next.js/portfolio-starter-kit': {
   //   name: 'deploy',
   // },
-}
+};
 
 export function Navbar() {
   return (
@@ -26,15 +26,16 @@ export function Navbar() {
                 <Link
                   key={path}
                   href={path}
-                  className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
+                  className="transition-all hover:text-blue-600 dark:hover:text-blue-400 flex align-middle relative py-1 px-2 m-1 overflow-hidden group"
                 >
-                  {name}
+                  <span className="relative z-10">{name}</span>
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600  transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
                 </Link>
-              )
+              );
             })}
           </div>
         </nav>
       </div>
     </aside>
-  )
+  );
 }
